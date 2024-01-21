@@ -1,0 +1,78 @@
+debug: true
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+      console-available: true
+  data:
+    rest:
+      basePath: /api
+  devtools:
+    restart:
+      exclude: assets/**,resources/**
+  application:
+    name: Profiles
+  profiles:
+    active: development
+  jpa:
+    ## Hibernate Properties
+    database: MYSQL
+    show-sql: true
+    format-sql: true
+    generate-ddl: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  #    hibernate:
+  #      dialect: org.hibernate.dialect.MySQL57Dialect
+  #      ddl-auto: update
+  #     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  #     properties:
+  #       hibernate:
+  datasource:
+    # Initialize the datasource with available DDL and DML scripts
+    initialization-mode: always
+    ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+#    url: jdbc:mysql://localhost:3306/basicSecurityRole?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+    url: jdbc:mysql://localhost:3306/basicSpringApp?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: password
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      max-wait: 20000
+      max-active: 50
+      max-idle: 20
+      min-idle: 15
+
+
+logging:
+  path: logs
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
+    com.learning: DEBUG
+  #    org.springframework.security: DEBUG
+  #  file: logs/application-debug.log
+  file: ${logging.path}/application-debug.log
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %cyan([%thread]) %highlight(%-5level) %cyan(%-40.40logger{40}).%M - %msg %n%xException{5}"
+    #    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %coloredLevel [%12.12thread] %cyan(%-40.40logger{40}) : %n%t%msg %n%xException{5}"
+    #    console: "%date %coloredLevel %cyan(%logger{15}) %message%n%xException{5}"
+    #    console: "%date  %highlight(%-5level) [%12.12thread] %cyan(%-40.40logger{40}) : %msg %n"
+    #    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n"
+    #    console: "%d %-5level %logger : %msg%n"
+    #    file: "%d %-5level [%thread] %logger : %msg%n
+    file: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
+#    console: %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+#    file: %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+#%logger{36}.%M
+# server runs on port number 8090
+
+server:
+  port: 8080
